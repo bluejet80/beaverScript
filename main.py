@@ -38,7 +38,7 @@ def get_transcript(episode_url):
 if __name__== "__main__":
     episode_links = get_episode_links()
 
-   for link in episode_links[:5]: # Limit to 5 episodes for testing
+    for link in episode_links[:5]: # Limit to 5 episodes for testing
        transcript_data = get_transcript(link)
        print(f"Title: {transcript_data['title']}\n")
        print(f"Transcript:\n{transcript_data['transcript']}\n")
