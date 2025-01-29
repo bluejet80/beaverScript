@@ -23,7 +23,7 @@ def get_episode_links():
 
 # Function to extract transcript from an episode page
 def get_transcript(episode_url):
-    responce = requiests.get(episode_url)
+    responce = requests.get(episode_url)
     soup = BeautifulSoup(responce.text, "html.parser")
 
     title = soup.find("h1").text.strip() # Extract episode title
