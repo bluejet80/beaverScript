@@ -5,7 +5,10 @@ import re
 
 # Base URL
 
-BASE_URL = "https://subslikescript.com/series/Leave_It_to_Beaver-50032"
+BASE_URL = "https://subslikescript.com/series/Little_House_on_the_Prairie-71007"
+sub_url = BASE_URL[26:]
+folder = "little_trans"
+showTitle = sub_url[8]
 
 # Function to get all episode links
 
@@ -13,14 +16,15 @@ def get_episode_links():
     responce = requests.get(BASE_URL)
     soup = BeautifulSoup(responce.text, "html.parser")
 
+
     # FInd all links to episodes
     links = []
 
-    for link in soup.select("a[href^='/series/Leave_It_to_Beaver-50032/']"):
+    for link in soup.select(f"a[href^='{sub_url}']"):
         episode_url = "https://subslikescript.com" + link["href"]
         links.append(episode_url)
 
-    print(len(links))
+    print(f"{len(links)} Episodes")
     return links
 
 # Function to extract transcript from an episode page
@@ -51,9 +55,9 @@ def save_transcript(episode_url):
         transcript_text = "No transcript found"
 
     # Clean the fifle to create a valid filename
-    fullFilename = f"transcripts/{title.replace(' ', '_').replace('/', '_').replace(',','')}.txt"
+    fullFilename = f"{folder}/{title.replace(' ', '_').replace('/', '_').replace(',','')}.txt"
 
-    filename = re.sub(r"Leave.*:_","", fullFilename)
+    filename = re.sub(rf"{showTitle}.*:_","", fullFilename)
 
     # Save to a file
     with open(filename, "w", encoding="utf-8") as file:

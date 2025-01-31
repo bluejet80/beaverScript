@@ -1,0 +1,5 @@
+Select spaces
+
+:%s/^\s\{4}//g
+
+
